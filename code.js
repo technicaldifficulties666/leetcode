@@ -34,3 +34,76 @@ var twoSum = function (nums, target) {
 twoSum([3,2,4], 6);
 twoSum([2,7,11,15], 9);
 twoSum([3,3], 6);
+
+
+/**
+ * Definition for singly-linked list. */
+function ListNode(val, next) {
+  this.val = (val === undefined ? 0 : val)
+  this.next = (next === undefined ? null : next)
+}
+
+/**
+* @param {ListNode} l1
+* @param {ListNode} l2
+* @return {ListNode}
+*/
+var addTwoNumbers = function (l1, l2) {
+  let n1 = getNumFromList(l1);
+  let n2 = getNumFromList(l2);
+  let sum = n1 + n2;
+  let stringSum = sum.toString();
+  let answer = [];
+  for (i = 0; i < stringSum.length; i++) {
+      answer.unshift(stringSum.charAt(i));
+      answer[i] = Number(answer[i]);
+  }
+
+  const linkedList = createLinkedListFromArray(answer);
+  for (i = 0; i < answer.length; i++){
+    console.log(answer[i]);
+  }
+  
+  return linkedList;
+};
+
+var getNumFromList = function (list) {
+  let num = [];
+  while (list.next) {
+      num.unshift(list.val)
+      list = list.next;
+  }
+  num.unshift(list.val);
+  let value = "";
+  for (i = 0; i < num.length; i++) {
+      value += num[i];
+  }
+  return Number(value);
+}
+
+function createLinkedListFromArray(arr) {
+  // Base case: an empty array returns null
+  if (arr.length === 0) {
+      return null;
+  }
+
+  // Create a new node with the first element of the array
+  const node = new ListNode(arr[0]);
+
+  // Recursively create the rest of the linked list from the remaining elements
+  node.next = createLinkedListFromArray(arr.slice(1));
+
+  return node;
+}
+
+let arr1 = [9,9,9,9,9,9,9];
+let arr2 = [9,9,9,9];
+let arr3 = [2,4,3];
+let arr4 = [5,6,4];
+const linkedListArr1 = createLinkedListFromArray(arr1);
+const linkedListArr2 = createLinkedListFromArray(arr2);
+const linkedListArr3 = createLinkedListFromArray(arr3);
+const linkedListArr4 = createLinkedListFromArray(arr4);
+
+addTwoNumbers(linkedListArr1, linkedListArr2);
+addTwoNumbers(linkedListArr3, linkedListArr4);
