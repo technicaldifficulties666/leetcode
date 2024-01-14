@@ -80,7 +80,7 @@ var getNumFromList = function (list) {
   for (i = 0; i < num.length; i++) {
       value += num[i];
   }
-  return Number(value);
+  return BigInt(value);
 }
 
 function createLinkedListFromArray(arr) {
@@ -100,7 +100,7 @@ function createLinkedListFromArray(arr) {
 
 let arr1 = [9,9,9,9,9,9,9];
 let arr2 = [9,9,9,9];
-let arr3 = [2,4,3];
+let arr3 = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
 let arr4 = [5,6,4];
 const linkedListArr1 = createLinkedListFromArray(arr1);
 const linkedListArr2 = createLinkedListFromArray(arr2);
