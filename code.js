@@ -51,22 +51,52 @@ function ListNode(val, next) {
 * @return {ListNode}
 */
 var addTwoNumbers = function (l1, l2) {
-  let n1 = getNumFromList(l1);
-  let n2 = getNumFromList(l2);
-  let sum = n1 + n2;
-  let stringSum = sum.toString();
-  let answer = [];
-  for (i = 0; i < stringSum.length; i++) {
-      answer.unshift(stringSum.charAt(i));
-      answer[i] = Number(answer[i]);
+  // let n1 = getNumFromList(l1);
+  // let n2 = getNumFromList(l2);
+  // let sum = n1 + n2;
+  // let stringSum = sum.toString();
+  // let answer = [];
+  // for (i = 0; i < stringSum.length; i++) {
+  //     answer.unshift(stringSum.charAt(i));
+  //     answer[i] = Number(answer[i]);
+  // }
+
+  // const linkedList = createLinkedListFromArray(answer);
+  // for (i = 0; i < answer.length; i++){
+  //   console.log(answer[i]);
+  // }
+  
+  // return linkedList;
+
+  // Leet code solution 
+  let dummyhead = new ListNode(0);
+  let tail = dummyhead;
+  let carry = 0;
+
+  while (l1 != null || l2 != null || carry != 0) {
+      let digit1 = (l1 != null) ? l1.val : 0;
+      let digit2 = (l2 != null) ? l2.val : 0;
+
+      let sum = digit1 + digit2 + carry;
+      let digit = sum % 10;
+      carry = Math.floor(sum / 10); // integer division
+
+      let node = new ListNode(digit);
+      tail.next = node;
+      tail = tail.next;
+
+      l1 = (l1 != null) ? l1.next : null;
+      l2 = (l2 != null) ? l2.next : null;
   }
 
-  const linkedList = createLinkedListFromArray(answer);
-  for (i = 0; i < answer.length; i++){
-    console.log(answer[i]);
+  let result = dummyhead.next;
+  dummyhead.next = null;
+  let output = copyList(result);
+  while (output!= null){
+    console.log(output.val);
+    output = output.next;
   }
-  
-  return linkedList;
+  return result;
 };
 
 var getNumFromList = function (list) {
@@ -98,14 +128,28 @@ function createLinkedListFromArray(arr) {
   return node;
 }
 
+function copyList(l1){
+  if (l1 == null){
+    return null;
+  }
+  let result = new ListNode;
+    result.val = l1.val;
+    result.next = copyList(l1.next);
+    return result;
+}
+
 let arr1 = [9,9,9,9,9,9,9];
 let arr2 = [9,9,9,9];
 let arr3 = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
 let arr4 = [5,6,4];
+let arr5 = [2,4,3];
+let arr6 = [7,0,8];
 const linkedListArr1 = createLinkedListFromArray(arr1);
 const linkedListArr2 = createLinkedListFromArray(arr2);
 const linkedListArr3 = createLinkedListFromArray(arr3);
 const linkedListArr4 = createLinkedListFromArray(arr4);
+const linkedListArr5 = createLinkedListFromArray(arr5);
+const linkedListArr6 = createLinkedListFromArray(arr6);
 
+addTwoNumbers(linkedListArr4, linkedListArr5);
 addTwoNumbers(linkedListArr1, linkedListArr2);
-addTwoNumbers(linkedListArr3, linkedListArr4);
