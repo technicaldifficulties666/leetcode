@@ -91,11 +91,11 @@ var addTwoNumbers = function (l1, l2) {
 
   let result = dummyhead.next;
   dummyhead.next = null;
-  let output = copyList(result);
-  while (output!= null){
-    console.log(output.val);
-    output = output.next;
-  }
+  // let output = copyList(result);
+  // while (output!= null){
+  //   console.log(output.val);
+  //   output = output.next;
+  // }
   return result;
 };
 
@@ -138,6 +138,36 @@ function copyList(l1){
     return result;
 }
 
+/*
+ * 3. Longest Substring Without Repeating Characters
+ * Given a string s, find the length of the longest substring without repeating characters.
+ * @param {string} s
+ * @return {number}
+*/
+
+var lengthOfLongestSubstring = function (s) {
+  let n = s.length;
+  let maxLength = 0;
+  let charMap = {};
+  let left = 0;
+
+  for (right = 0; right < n; right++){
+    if(!(s[right] in charMap) || charMap[s[right]] < left){
+      charMap[s[right]] = right;
+      maxLength = Math.max(maxLength, right - left + 1);
+    } else {
+      left = charMap[s[right]] + 1;
+      charMap[s[right]] = right;
+    }
+  }
+  return maxLength;
+}
+
+
+
+////////
+////TEST CASES
+
 let arr1 = [9,9,9,9,9,9,9];
 let arr2 = [9,9,9,9];
 let arr3 = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
@@ -153,3 +183,15 @@ const linkedListArr6 = createLinkedListFromArray(arr6);
 
 addTwoNumbers(linkedListArr4, linkedListArr5);
 addTwoNumbers(linkedListArr1, linkedListArr2);
+
+let testcase = "abcabcbb";
+let testcase1 = "pwwkew";
+let testcase2 = "anviaj";
+
+let answer = lengthOfLongestSubstring(testcase);
+let answer1 = lengthOfLongestSubstring(testcase1);
+let answer2 = lengthOfLongestSubstring(testcase2);
+
+console.log("longest substring in " + testcase + " is " + answer);
+console.log("longest substring in " + testcase1 + " is " + answer1);
+console.log("longest substring in " + testcase2 + " is " + answer2);
